@@ -1,0 +1,4 @@
+rootProject.name = "RSSreader"
+include ':app'
+include ':domain'
+include ':infra'
