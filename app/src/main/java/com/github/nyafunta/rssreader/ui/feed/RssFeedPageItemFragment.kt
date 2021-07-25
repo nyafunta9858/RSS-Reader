@@ -11,7 +11,6 @@ import com.github.nyafunta.rssreader.R
 import com.github.nyafunta.rssreader.databinding.RssFeedPageItemFragmentBinding
 import com.github.nyafunta.rssreader.domain.infra.predefine.Category
 import com.github.nyafunta.rssreader.ui.util.EventObserver
-import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
 import com.google.android.material.snackbar.Snackbar
 import com.wada811.databinding.dataBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -37,7 +36,6 @@ class RssFeedPageItemFragment : Fragment(R.layout.rss_feed_page_item_fragment) {
         viewModel.onError.observe(viewLifecycleOwner, EventObserver {
             Snackbar
                 .make(binding.root, R.string.error_on_fetch_rss_feed, Snackbar.LENGTH_SHORT)
-                .setAnimationMode(ANIMATION_MODE_SLIDE)
                 .show()
         })
     }
@@ -47,6 +45,11 @@ class RssFeedPageItemFragment : Fragment(R.layout.rss_feed_page_item_fragment) {
         val intent = Intent(Intent.ACTION_VIEW, uri)
 
         startActivity(intent)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.rssFeedList.adapter = null
     }
 
     companion object {

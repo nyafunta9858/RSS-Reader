@@ -23,4 +23,8 @@ class RssFeedFragment : Fragment(R.layout.rss_feed_fragment) {
         binding.viewModel = viewModel
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        binding.viewPager.adapter = null
+    }
 }

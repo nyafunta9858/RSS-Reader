@@ -15,5 +15,6 @@
     <string name="category_game">アニメとゲーム</string>
 
     <string name="error_on_fetch_rss_feed">データの取得に失敗しました。\n通信状況をご確認の上、再度お試しください。</string>
+    <string name="snackbar_message_confirm_finishing">アプリを終了しますか？</string>
 
 </resources>
