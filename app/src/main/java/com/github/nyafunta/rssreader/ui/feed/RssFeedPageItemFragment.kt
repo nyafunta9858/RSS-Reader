@@ -1,5 +1,7 @@
 package com.github.nyafunta.rssreader.ui.feed
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import androidx.core.os.bundleOf
@@ -35,7 +37,12 @@ class RssFeedPageItemFragment : Fragment(R.layout.rss_feed_page_item_fragment) {
     }
 
     private fun transition(rssItem: RssItem) {
-        findNavController().navigate(RssFeedFragmentDirections.toDetail(rssItem))
+        val link = rssItem.link ?: return
+
+        val uri = Uri.parse(link)
+        val intent = Intent(Intent.ACTION_VIEW, uri)
+
+        startActivity(intent)
     }
 
     companion object {

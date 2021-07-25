@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.github.nyafunta.rssreader.ui.detail.RssDetailViewModel" />
@@ -23,7 +25,8 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="?attr/actionBarSize"
+                android:elevation="4dp"
                 app:title="@{viewModel.title}"
                 app:titleTextColor="?attr/colorOnPrimary" />
 
@@ -31,23 +34,48 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:padding="@dimen/text_margin">
 
                 <TextView
+                    android:id="@+id/title"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:maxLines="3"
                     android:text="@{viewModel.title}"
-                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:textAppearance="?attr/textAppearanceHeadline5"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    tools:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
-                    tools:textColor="@color/black" />
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/thumbnail"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="@dimen/text_margin"
+                    android:adjustViewBounds="true"
+                    android:maxLines="3"
+                    android:scaleType="fitXY"
+                    android:visibility="@{viewModel.isThumbnailVisible() ? View.GONE : View.VISIBLE}"
+                    app:image_url="@{viewModel.imageUrl}"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/title" />
+
+                <TextView
+                    android:id="@+id/description"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:text="@{viewModel.description}"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/thumbnail" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

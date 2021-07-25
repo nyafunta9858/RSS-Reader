@@ -5,6 +5,8 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.setupWithNavController
 import com.github.nyafunta.rssreader.R
 import com.github.nyafunta.rssreader.databinding.RssDetailFragmentBinding
 import com.github.nyafunta.rssreader.domain.model.RssItem
@@ -19,6 +21,8 @@ class RssDetailFragment : Fragment(R.layout.rss_detail_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.toolbar.setupWithNavController(findNavController())
 
         val args = RssDetailFragmentArgs.fromBundle(requireArguments())
         viewModel.init(args.rssItem)

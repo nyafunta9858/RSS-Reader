@@ -51,7 +51,10 @@ fun RecyclerView.setRssFeed(rssFeed: RssFeed?, listener: OnItemClickListener) {
 
 @BindingAdapter("image_url")
 fun ImageView.loadImage(imageUrl: String?) {
-    val url = imageUrl.takeUnless { it.isNullOrEmpty() } ?: return
+    val url = imageUrl.takeUnless { it.isNullOrEmpty() } ?: run {
+        visibility = View.GONE
+        return
+    }
 
     findViewTreeLifecycleOwner()?.let { owner ->
         owner.lifecycleScope.launchWhenResumed {
