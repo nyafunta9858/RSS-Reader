@@ -39,10 +39,19 @@ fun RecyclerView.setRssFeed(rssFeed: RssFeed?, listener: OnItemClickListener) {
             it.title.isNullOrEmpty() || it.description.isNullOrEmpty() || it.date.isNullOrEmpty()
         }
         .map {
-            RssFeedItemDataStore(requireNotNull(it.title), requireNotNull(it.description), it.image.orEmpty(), requireNotNull(it.date))
+            RssFeedItemDataStore(
+                requireNotNull(it.title),
+                requireNotNull(it.description),
+                it.image.orEmpty(),
+                requireNotNull(it.date)
+            )
         }
-        .map {
-            RssFeedItem(it, listener)
+        .mapIndexed { index, store ->
+            if (index == 0) {
+                RssFeedItem(store, listener)
+            } else {
+                RssFeedItemSecondary(store, listener)
+            }
         }
         .let {
             (adapter as GroupieAdapter).addAll(it)
@@ -63,7 +72,7 @@ fun ImageView.loadImage(imageUrl: String?) {
                 .lifecycle(owner)
                 .build()
 
-            visibility = View.INVISIBLE
+            visibility = View.GONE
 
             val result = context.imageLoader.execute(request)
 

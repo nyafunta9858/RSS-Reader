@@ -7,7 +7,6 @@ import android.view.View
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.github.nyafunta.rssreader.R
 import com.github.nyafunta.rssreader.databinding.RssFeedPageItemFragmentBinding
 import com.github.nyafunta.rssreader.domain.infra.predefine.Category
