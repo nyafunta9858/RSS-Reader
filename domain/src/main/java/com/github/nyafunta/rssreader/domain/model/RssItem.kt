@@ -13,24 +13,24 @@ class RssItem : Serializable {
             field = link?.trim { it <= ' ' }
         }
     var image: String? = null
-    var publishDate: String? = null
+    var date: String? = null
     var description: String? = null
 
-
-    override fun toString(): String {
-        val builder = StringBuilder()
+    override fun toString(): String = buildString {
         if (title != null) {
-            builder.append(title).append("\n")
+            append(title).append("\n")
         }
         if (link != null) {
-            builder.append(link).append("\n")
+            append(link).append("\n")
         }
         if (image != null) {
-            builder.append(image).append("\n")
+            append(image).append("\n")
+        }
+        if (date != null) {
+            append(date).append("\n")
         }
         if (description != null) {
-            builder.append(description)
+            append(description)
         }
-        return builder.toString()
     }
 }

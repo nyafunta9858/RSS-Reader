@@ -44,7 +44,7 @@
                 android:scaleType="fitXY"
                 android:visibility="@{store.isThumbnailVisible ? View.VISIBLE : View.GONE}"
                 app:image_url="@{store.imageUrl}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
@@ -58,10 +58,21 @@
                 android:text="@{store.description}"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:visibility="@{store.isThumbnailVisible ? View.GONE : View.VISIBLE}"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/date"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/title" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/text_margin"
+                android:maxLines="1"
+                android:textAppearance="?attr/textAppearanceListItemSmall"
+                app:publish_date="@{store.date}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

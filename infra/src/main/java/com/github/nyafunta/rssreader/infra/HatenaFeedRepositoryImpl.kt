@@ -12,12 +12,14 @@ class HatenaFeedRepositoryImpl @Inject internal constructor(
 
     override suspend fun getAll(): RssFeed = api.all().also(::toLog)
 
-
     override suspend fun get(category: Category): RssFeed = api.get(category.raw).also(::toLog)
 
     // for debug
     private fun toLog(feed: RssFeed) {
         android.util.Log.e("DEBUG", "size : ${feed.items.size}")
+        feed.items.forEachIndexed { index, rssItem ->
+            android.util.Log.e("DEBUG", "No.$index $rssItem")
+        }
     }
 
 }

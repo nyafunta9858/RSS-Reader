@@ -1,6 +1,8 @@
 package com.github.nyafunta.rssreader.ui.feed
 
+import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -8,11 +10,15 @@ import androidx.recyclerview.widget.RecyclerView
 import coil.imageLoader
 import coil.request.ImageRequest
 import coil.request.SuccessResult
-import coil.transform.BlurTransformation
-import coil.transform.RoundedCornersTransformation
 import com.github.nyafunta.rssreader.domain.model.RssFeed
 import com.xwray.groupie.GroupieAdapter
-import kotlinx.coroutines.Dispatchers
+import org.threeten.bp.LocalDateTime
+import org.threeten.bp.format.DateTimeFormatter
+
+private const val DATE_PARSE_FORMAT_PATTERN = "yyyy-MM-dd\'T\'HH:mm:ss\'Z\'"
+private const val DATE_DISPLAY_FORMAT_PATTERN = "yyyy/MM/dd HH:mm"
+private const val DATE_PARSE_ERROR = "----/--/-- --:--"
+
 
 @BindingAdapter("rss_feed")
 fun RecyclerView.setRssFeed(rssFeed: RssFeed?) {
@@ -24,11 +30,10 @@ fun RecyclerView.setRssFeed(rssFeed: RssFeed?) {
 
     rssFeed.items
         .filterNot {
-            it.title.isNullOrEmpty() || it.description.isNullOrEmpty()
+            it.title.isNullOrEmpty() || it.description.isNullOrEmpty() || it.date.isNullOrEmpty()
         }
         .map {
-            android.util.Log.e("DEBUG", "item ${it.image}")
-            RssFeedItemDataStore(requireNotNull(it.title), requireNotNull(it.description), it.image.orEmpty())
+            RssFeedItemDataStore(requireNotNull(it.title), requireNotNull(it.description), it.image.orEmpty(), requireNotNull(it.date))
         }
         .map {
             RssFeedItem(it)
@@ -49,21 +54,37 @@ fun ImageView.loadImage(imageUrl: String?) {
                 .lifecycle(owner)
                 .build()
 
+            visibility = View.INVISIBLE
+
             val result = context.imageLoader.execute(request)
 
             if (result is SuccessResult) {
                 val key = result.metadata.memoryCacheKey
                 if (key != null) {
-                    android.util.Log.e("DEBUG", "from cache")
                     context.imageLoader.memoryCache[key]
                 } else {
-                    android.util.Log.e("DEBUG", "not found key")
                     result.drawable
                 }
 
                 setImageDrawable(result.drawable)
+
+                visibility = View.VISIBLE
             }
         }
     }
+}
 
+@BindingAdapter("publish_date")
+fun TextView.setPublishDate(date: String?) {
+    date.takeUnless { it.isNullOrEmpty() } ?: return
+
+    kotlin.runCatching {
+        LocalDateTime
+            .parse(date, DateTimeFormatter.ofPattern(DATE_PARSE_FORMAT_PATTERN))
+            .format(DateTimeFormatter.ofPattern(DATE_DISPLAY_FORMAT_PATTERN))
+    }.onSuccess {
+        text = it
+    }.onFailure {
+        text = DATE_PARSE_ERROR
+    }
 }

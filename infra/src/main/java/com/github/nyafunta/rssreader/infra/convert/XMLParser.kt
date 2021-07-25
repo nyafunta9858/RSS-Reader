@@ -64,7 +64,7 @@ internal class XMLParser : DefaultHandler() {
                         it.title = title.trim { it <= ' ' }
                         it.link = link
                         it.image = image
-                        it.publishDate = date
+                        it.date = date
                         it.description = description
                         if (image == null && description != null && getImageSourceFromDescription(description) != null) {
                             it.image = getImageSourceFromDescription(description!!)
@@ -88,7 +88,7 @@ internal class XMLParser : DefaultHandler() {
                 IMAGE, IMAGE_URL, URL -> if (elementValue != null && elementValue?.isNotEmpty() == true) {
                     image = elementValue
                 }
-                PUBLISH_DATE -> date = elementValue
+                PUBLISH_DATE, DATE -> date = elementValue
                 DESCRIPTION -> {
                     parsingDescription = false
                     elementValue = EMPTY_STRING
@@ -160,6 +160,7 @@ internal class XMLParser : DefaultHandler() {
         private const val URL = "url"
         private const val IMAGE = "image"
         private const val IMAGE_URL = "imageurl"
+        private const val DATE = "date"
         private const val PUBLISH_DATE = "pubdate"
     }
 }
