@@ -21,8 +21,9 @@ internal class XMLParser : DefaultHandler() {
     private var description: String? = null
 
     private var rssItem: RssItem? = null
-    val items = arrayListOf<RssItem>()
-
+    private val items = mutableListOf<RssItem>()
+    val rssItems: List<RssItem>
+        get() = items
 
     @Throws(SAXException::class)
     override fun startElement(uri: String, localName: String, qName: String,
@@ -87,7 +88,7 @@ internal class XMLParser : DefaultHandler() {
                 IMAGE, IMAGE_URL, URL -> if (elementValue != null && elementValue?.isNotEmpty() == true) {
                     image = elementValue
                 }
-                PUBLISH_DATE, DATE -> date = elementValue
+                DATE -> date = elementValue
                 DESCRIPTION -> {
                     parsingDescription = false
                     elementValue = EMPTY_STRING
@@ -160,6 +161,5 @@ internal class XMLParser : DefaultHandler() {
         private const val IMAGE = "image"
         private const val IMAGE_URL = "imageurl"
         private const val DATE = "date"
-        private const val PUBLISH_DATE = "pubdate"
     }
 }

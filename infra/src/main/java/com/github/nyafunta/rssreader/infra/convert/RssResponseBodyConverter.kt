@@ -10,8 +10,7 @@ import javax.xml.parsers.SAXParserFactory
 internal class RssResponseBodyConverter : Converter<ResponseBody, RssFeed> {
 
     override fun convert(value: ResponseBody): RssFeed {
-        val rssFeed = RssFeed()
-        try {
+        val items = kotlin.runCatching {
             val parser = XMLParser()
             val parserFactory = SAXParserFactory.newInstance()
             val saxParser = parserFactory.newSAXParser()
@@ -19,13 +18,10 @@ internal class RssResponseBodyConverter : Converter<ResponseBody, RssFeed> {
             xmlReader.contentHandler = parser
             val inputSource = InputSource(value.charStream())
             xmlReader.parse(inputSource)
-            val items = parser.items
-            rssFeed.items = items
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+            parser.rssItems
+        }.getOrNull().orEmpty()
 
-        return rssFeed
+        return RssFeed(items)
     }
 
 }
