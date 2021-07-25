@@ -24,16 +24,23 @@ class RssFeedPageItemViewModel @Inject constructor(
     private val _onItemClicked = MutableLiveData<Event<RssItem>>()
     val onItemClicked: LiveData<Event<RssItem>> = _onItemClicked
 
+    private val _isLoading = MutableLiveData(false)
+    val isLoading: LiveData<Boolean> = _isLoading
+
     val listener = OnItemClickListener(::postRssItem)
 
     fun init(category: Category) {
         viewModelScope.launch {
+            _isLoading.value = true
+
             val result = if (category == Category.ALL) {
                 repository.getAll()
             } else {
                 repository.get(category)
             }
             feed.set(result)
+
+            _isLoading.value = false
         }
     }
 

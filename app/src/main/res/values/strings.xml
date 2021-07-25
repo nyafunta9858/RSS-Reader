@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">RSSreader</string>
 
+    <string name="name_rss_feed_fragment">RSSリーダー</string>
+
     <string name="category_all">総合</string>
     <string name="category_general">一般</string>
     <string name="category_social">世の中</string>

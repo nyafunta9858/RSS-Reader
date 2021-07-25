@@ -19,7 +19,8 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                android:id="@id/toolbar"
+                app:titleTextColor="?attr/colorOnPrimary"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

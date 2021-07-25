@@ -6,21 +6,39 @@
 
     <data>
 
+        <import type="android.view.View" />
+
         <variable
             name="viewModel"
             type="com.github.nyafunta.rssreader.ui.feed.RssFeedPageItemViewModel" />
     </data>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rss_feed_list"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="16dp"
-        android:layout_marginRight="16dp"
-        app:layoutManager="LinearLayoutManager"
-        app:listener="@{viewModel.listener}"
-        app:rss_feed="@{viewModel.feed}"
-        tools:context=".ui.feed.RssFeedFragment"
-        tools:listitem="@layout/item_rss_feed" />
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rss_feed_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:visibility="@{viewModel.isLoading() ? View.GONE : View.VISIBLE}"
+            app:layoutManager="LinearLayoutManager"
+            app:listener="@{viewModel.listener}"
+            app:rss_feed="@{viewModel.feed}"
+            tools:context=".ui.feed.RssFeedFragment"
+            tools:listitem="@layout/item_rss_feed" />
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="@{viewModel.isLoading() ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

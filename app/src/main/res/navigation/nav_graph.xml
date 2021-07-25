@@ -8,7 +8,7 @@
     <fragment
         android:id="@+id/rss_feed_fragment"
         android:name="com.github.nyafunta.rssreader.ui.feed.RssFeedFragment"
-        android:label="com.github.nyafunta.rssreader.ui.feed.RssFeedFragment">
+        android:label="@string/name_rss_feed_fragment">
 
         <action
             android:id="@+id/toDetail"
