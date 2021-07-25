@@ -18,6 +18,7 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         app:layoutManager="LinearLayoutManager"
+        app:listener="@{viewModel.listener}"
         app:rss_feed="@{viewModel.feed}"
         tools:context=".ui.feed.RssFeedFragment"
         tools:listitem="@layout/item_rss_feed" />

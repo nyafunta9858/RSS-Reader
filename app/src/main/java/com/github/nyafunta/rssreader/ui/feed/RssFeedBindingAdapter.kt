@@ -20,8 +20,8 @@ private const val DATE_DISPLAY_FORMAT_PATTERN = "yyyy/MM/dd HH:mm"
 private const val DATE_PARSE_ERROR = "----/--/-- --:--"
 
 
-@BindingAdapter("rss_feed")
-fun RecyclerView.setRssFeed(rssFeed: RssFeed?) {
+@BindingAdapter("rss_feed", "listener")
+fun RecyclerView.setRssFeed(rssFeed: RssFeed?, listener: OnItemClickListener) {
     rssFeed ?: return
 
     if (adapter == null) {
@@ -36,7 +36,7 @@ fun RecyclerView.setRssFeed(rssFeed: RssFeed?) {
             RssFeedItemDataStore(requireNotNull(it.title), requireNotNull(it.description), it.image.orEmpty(), requireNotNull(it.date))
         }
         .map {
-            RssFeedItem(it)
+            RssFeedItem(it, listener)
         }
         .let {
             (adapter as GroupieAdapter).addAll(it)

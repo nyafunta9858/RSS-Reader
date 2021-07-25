@@ -17,6 +17,10 @@ class RssFeedViewModel @Inject constructor(
 
     val feed = ObservableField<RssFeed>()
 
+    val listener = OnItemClickListener {
+        android.util.Log.e("DEBUG", "onItemClicked $it")
+    }
+
     fun init(category: Category) {
         viewModelScope.launch {
             feed.set(repository.get(category))
