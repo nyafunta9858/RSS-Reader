@@ -7,7 +7,7 @@ import com.xwray.groupie.viewbinding.BindableItem
 
 class RssFeedItem(
     private val store: RssFeedItemDataStore,
-    private val onItemClicked: OnItemClickListener
+    private val onItemClicked: OnRssItemClickListener
 ) : BindableItem<ItemRssFeedBinding>() {
 
     override fun initializeViewBinding(view: View): ItemRssFeedBinding =
@@ -16,7 +16,7 @@ class RssFeedItem(
     override fun bind(viewBinding: ItemRssFeedBinding, position: Int) {
         viewBinding.store = store
         viewBinding.root.setOnClickListener {
-            onItemClicked(position)
+            onItemClicked(store.link)
         }
     }
 

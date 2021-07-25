@@ -10,8 +10,9 @@ import androidx.fragment.app.viewModels
 import com.github.nyafunta.rssreader.R
 import com.github.nyafunta.rssreader.databinding.RssFeedPageItemFragmentBinding
 import com.github.nyafunta.rssreader.domain.infra.predefine.Category
-import com.github.nyafunta.rssreader.domain.model.RssItem
 import com.github.nyafunta.rssreader.ui.util.EventObserver
+import com.google.android.material.snackbar.BaseTransientBottomBar.ANIMATION_MODE_SLIDE
+import com.google.android.material.snackbar.Snackbar
 import com.wada811.databinding.dataBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,14 +31,18 @@ class RssFeedPageItemFragment : Fragment(R.layout.rss_feed_page_item_fragment) {
     }
 
     private fun observe() {
-        viewModel.onItemClicked.observe(viewLifecycleOwner, EventObserver {
+        viewModel.onRssItemClicked.observe(viewLifecycleOwner, EventObserver {
             transition(it)
+        })
+        viewModel.onError.observe(viewLifecycleOwner, EventObserver {
+            Snackbar
+                .make(binding.root, R.string.error_on_fetch_rss_feed, Snackbar.LENGTH_SHORT)
+                .setAnimationMode(ANIMATION_MODE_SLIDE)
+                .show()
         })
     }
 
-    private fun transition(rssItem: RssItem) {
-        val link = rssItem.link ?: return
-
+    private fun transition(link: String) {
         val uri = Uri.parse(link)
         val intent = Intent(Intent.ACTION_VIEW, uri)
 

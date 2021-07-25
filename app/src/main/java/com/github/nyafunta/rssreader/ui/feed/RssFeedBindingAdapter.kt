@@ -27,7 +27,7 @@ private const val DATE_PARSE_ERROR = "----/--/-- --:--"
 
 
 @BindingAdapter("rss_feed", "listener")
-fun RecyclerView.setRssFeed(rssFeed: RssFeed?, listener: OnItemClickListener) {
+fun RecyclerView.setRssFeed(rssFeed: RssFeed?, listener: OnRssItemClickListener) {
     rssFeed ?: return
 
     if (adapter == null) {
@@ -43,6 +43,7 @@ fun RecyclerView.setRssFeed(rssFeed: RssFeed?, listener: OnItemClickListener) {
                 requireNotNull(it.title),
                 requireNotNull(it.description),
                 it.image.orEmpty(),
+                requireNotNull(it.link),
                 requireNotNull(it.date)
             )
         }

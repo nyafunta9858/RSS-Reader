@@ -10,8 +10,8 @@ class HatenaFeedRepositoryImpl @Inject internal constructor(
     private val api: HatenaApi
 ) : HatenaFeedRepository {
 
-    override suspend fun getAll(): RssFeed = api.all()
+    override suspend fun fetchAll(): RssFeed = api.all()
 
-    override suspend fun get(category: Category): RssFeed = api.get(category.raw)
+    override suspend fun fetchByCategory(category: Category): RssFeed = api.get(category.raw)
 
 }

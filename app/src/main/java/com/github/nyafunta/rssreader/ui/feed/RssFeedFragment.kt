@@ -18,7 +18,7 @@ class RssFeedFragment : Fragment(R.layout.rss_feed_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.viewPager.offscreenPageLimit = 3
+        binding.viewPager.offscreenPageLimit = 2
         binding.viewPager.adapter = RssFeedCategoryPagerAdapter(this)
         binding.viewModel = viewModel
     }

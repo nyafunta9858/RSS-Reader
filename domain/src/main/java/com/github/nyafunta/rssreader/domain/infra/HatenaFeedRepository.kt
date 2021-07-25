@@ -5,8 +5,8 @@ import com.github.nyafunta.rssreader.domain.model.RssFeed
 
 interface HatenaFeedRepository {
 
-    suspend fun getAll(): RssFeed
+    suspend fun fetchAll(): RssFeed
 
-    suspend fun get(category: Category): RssFeed
+    suspend fun fetchByCategory(category: Category): RssFeed
 
 }
