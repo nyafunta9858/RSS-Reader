@@ -8,7 +8,7 @@
 
         <variable
             name="viewModel"
-            type="com.github.nyafunta.rssreader.ui.feed.RssFeedViewModel" />
+            type="com.github.nyafunta.rssreader.ui.feed.RssFeedPageItemViewModel" />
     </data>
 
     <androidx.recyclerview.widget.RecyclerView

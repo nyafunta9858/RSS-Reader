@@ -54,7 +54,6 @@ internal class XMLParser : DefaultHandler() {
 
     @Throws(SAXException::class)
     override fun endElement(uri: String, localName: String, qName: String) {
-        android.util.Log.e("DEBUG", "localName $localName, qName $qName")
         elementOn = false
         if (rssItem != null) {
             when (localName.lowercase(Locale.getDefault())) {

@@ -1,6 +1,7 @@
-package com.github.nyafunta.rssreader.domain.infra.enum
+package com.github.nyafunta.rssreader.domain.infra.predefine
 
 enum class Category(val raw: String) {
+    ALL("all"),
     GENERAL("general"),
     SOCIAL("social"),
     ECONOMICS("economics"),
